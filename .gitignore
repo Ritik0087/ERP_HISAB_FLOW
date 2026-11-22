@@ -1,0 +1,8 @@
+__pycache__/
+*.pyc
+data/*.db
+data/*.db-shm
+data/*.db-wal
+data/companies/
+data/archived_companies/
+data/auto_backups/

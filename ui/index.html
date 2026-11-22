@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#312e81">
+<title>HisabFlow — Business management</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 64 64%27%3E%3Cdefs%3E%3ClinearGradient id=%27g%27 x1=%270%27 y1=%270%27 x2=%271%27 y2=%271%27%3E%3Cstop offset=%270%27 stop-color=%27%235b5bf0%27/%3E%3Cstop offset=%271%27 stop-color=%27%23a855f7%27/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width=%2764%27 height=%2764%27 rx=%2716%27 fill=%27url(%23g)%27/%3E%3Ctext x=%2732%27 y=%2742%27 font-family=%27Segoe UI,Arial%27 font-size=%2726%27 font-weight=%27800%27 fill=%27white%27 text-anchor=%27middle%27%3EHF%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="/ui/styles.css">
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar" id="sidebar">
+    <div class="brand"><div class="brand-mark">HF</div><div class="brand-text"><div class="brand-name">HisabFlow</div><div class="brand-sub">Business, made simple</div></div><button class="rail-toggle" onclick="toggleRail()" title="Collapse / expand menu" aria-label="Collapse menu">‹</button></div>
+    <nav class="side-nav" aria-label="Main">
+      <button class="nav-btn" data-view="dashboard" title="Dashboard"><span class="ico">▦</span><span class="lbl">Dashboard</span></button>
+      <div class="nav-group" data-group="sales"><button class="group-head" onclick="toggleGroup(this)" aria-expanded="true"><span>Sales</span><i>▾</i></button><div class="group-items"><button class="nav-btn" data-view="invoices" title="Invoices"><span class="ico">▤</span><span class="lbl">Invoices</span><kbd>F8</kbd></button><button class="nav-btn" data-view="creditnotes" title="Credit notes"><span class="ico">↩</span><span class="lbl">Credit notes</span><kbd>Ctrl F8</kbd></button><button class="nav-btn" data-view="payments" title="Receipts & dues"><span class="ico">₹</span><span class="lbl">Receipts & dues</span><kbd>F6</kbd></button><button class="nav-btn" data-view="quotations" title="Quotations"><span class="ico">▧</span><span class="lbl">Quotations</span></button><button class="nav-btn" data-view="recurring" title="Recurring"><span class="ico">⟳</span><span class="lbl">Recurring</span></button><button class="nav-btn" data-view="customers" title="Customers"><span class="ico">♙</span><span class="lbl">Customers</span></button></div></div>
+      <div class="nav-group" data-group="purchase"><button class="group-head" onclick="toggleGroup(this)" aria-expanded="true"><span>Purchases</span><i>▾</i></button><div class="group-items"><button class="nav-btn" data-view="purchases" title="Purchase bills"><span class="ico">⇩</span><span class="lbl">Purchase bills</span><kbd>F9</kbd></button><button class="nav-btn" data-view="debitnotes" title="Debit notes"><span class="ico">↪</span><span class="lbl">Debit notes</span><kbd>Ctrl F9</kbd></button><button class="nav-btn" data-view="suppliers" title="Suppliers"><span class="ico">⚑</span><span class="lbl">Suppliers</span></button><button class="nav-btn" data-view="expenses" title="Expenses"><span class="ico">↗</span><span class="lbl">Expenses</span><kbd>F5</kbd></button></div></div>
+      <div class="nav-group" data-group="stock"><button class="group-head" onclick="toggleGroup(this)" aria-expanded="true"><span>Inventory</span><i>▾</i></button><div class="group-items"><button class="nav-btn" data-view="items" title="Items & services"><span class="ico">◈</span><span class="lbl">Items & services</span></button><button class="nav-btn" data-view="inventory" title="Stock"><span class="ico">▦</span><span class="lbl">Stock</span></button><button class="nav-btn" data-view="warranties" title="Warranty"><span class="ico">▣</span><span class="lbl">Warranty</span></button></div></div>
+      <div class="nav-group" data-group="accounts"><button class="group-head" onclick="toggleGroup(this)" aria-expanded="true"><span>Accounts & GST</span><i>▾</i></button><div class="group-items"><button class="nav-btn" data-view="gst" title="GST returns"><span class="ico">%</span><span class="lbl">GST returns</span></button><button class="nav-btn" data-view="cashflow" title="Cash flow"><span class="ico">⇄</span><span class="lbl">Cash flow</span></button><button class="nav-btn" data-view="reports" title="Reports"><span class="ico">▥</span><span class="lbl">Reports</span></button></div></div>
+      <div class="nav-group" data-group="team"><button class="group-head" onclick="toggleGroup(this)" aria-expanded="true"><span>Team & tools</span><i>▾</i></button><div class="group-items"><button class="nav-btn" data-view="staff" title="Staff & payroll"><span class="ico">☺</span><span class="lbl">Staff & payroll</span></button><button class="nav-btn" data-view="assistant" title="AI assistant"><span class="ico">✦</span><span class="lbl">AI assistant</span></button><button class="nav-btn" data-view="settings" title="Settings"><span class="ico">⚙</span><span class="lbl">Settings</span></button></div></div>
+    </nav>
+    <div class="side-bottom"><span class="pulse"></span><div><strong>Offline &amp; private</strong><span>Data stays on this computer · auto backup</span></div></div>
+  </aside>
+  <div class="scrim" onclick="toggleMobileNav(false)"></div>
+  <main class="main">
+    <header class="topbar"><button class="icon-btn mobile-only" onclick="toggleMobileNav()" aria-label="Open menu">☰</button><div class="crumbs"><span id="crumbGroup">Overview</span><i>›</i><b id="pageTitle">Dashboard</b><span class="hide" id="pageSub"></span></div><div class="company-switch"><button class="company-btn" id="companyBtn" onclick="toggleCompanyMenu(event)" title="Switch company"><span class="company-dot" id="companyDot">HF</span><span class="company-text"><b id="companyName">My business</b><small>Company</small></span><span class="caret">▾</span></button><div class="menu" id="companyMenu"></div></div><button class="search-trigger" onclick="openPalette()"><span class="si">⌕</span><span class="st">Search or jump to…</span><kbd>Ctrl K</kbd></button><div class="top-actions"><button class="icon-btn" onclick="showShortcuts()" title="Keyboard shortcuts (?)" aria-label="Keyboard shortcuts">⌨</button><div class="new-menu"><button class="btn primary" onclick="toggleNewMenu(event)">＋ Create <span class="caret">▾</span></button><div class="menu menu-right" id="newMenu"><button onclick="closeMenus();openInvoiceForm()"><span class="mi">▤</span><span>Sales invoice</span><kbd>F8</kbd></button><button onclick="closeMenus();openCreditNoteForm()"><span class="mi">↩</span><span>Credit note</span><kbd>Ctrl F8</kbd></button><button onclick="closeMenus();openReceiptPicker()"><span class="mi">₹</span><span>Receipt (customer payment)</span><kbd>F6</kbd></button><button onclick="closeMenus();openPurchaseForm()"><span class="mi">⇩</span><span>Purchase bill</span><kbd>F9</kbd></button><button onclick="closeMenus();openDebitNoteForm()"><span class="mi">↪</span><span>Debit note</span><kbd>Ctrl F9</kbd></button><button onclick="closeMenus();openPaymentPicker()"><span class="mi">↗</span><span>Payment / expense</span><kbd>F5</kbd></button><button onclick="closeMenus();openQuotationForm()"><span class="mi">▧</span><span>Quotation</span></button><button onclick="closeMenus();openCreateMaster()"><span class="mi">＋</span><span>Customer / supplier / item</span><kbd>Alt C</kbd></button></div></div><div class="user-chip"><button class="user-btn" id="userBtn" onclick="toggleUserMenu(event)" aria-haspopup="true"><span class="avatar" id="userAvatar">?</span><span class="uname" id="userName">Account</span><span class="tiny">▾</span></button><div class="user-menu" id="userMenu"><div class="who"><b id="userMenuName"></b><span id="userMenuRole"></span></div><button onclick="closeUserMenu();openChangePassword()">🔑 Change password</button><button class="owner-only" onclick="closeUserMenu();navigate('settings');setTimeout(()=>document.getElementById('usersPanel')?.scrollIntoView({behavior:'smooth'}),60)">👥 Manage users</button><button class="danger" onclick="logout()">⎋ Sign out</button></div></div></div></header>
+    <div class="content">
+      <section class="view active" id="view-dashboard">
+        <div class="welcome"><div><h2 id="welcomeTitle">Welcome to HisabFlow</h2><p id="welcomeText">Set up your business to start creating invoices and tracking payments.</p></div><button class="btn" id="welcomeBtn" onclick="navigate('settings')">Set up business →</button></div>
+        <div class="grid stats" id="dashboardStats"></div>
+        <div class="grid chart-grid"><div class="panel chart-card wide" id="chartSalesCard"><div class="panel-head"><div><h3>Sales vs collections</h3><p>Last 12 months · invoice value and money received</p></div><button class="btn small" onclick="toggleChartTable('chartSales')">Table</button></div><div class="chart-body" id="chartSales"></div></div><div class="panel chart-card"><div class="panel-head"><div><h3>Top customers</h3><p>Net sales, last 12 months</p></div><button class="btn small" onclick="toggleChartTable('chartCustomers')">Table</button></div><div class="chart-body" id="chartCustomers"></div></div><div class="panel chart-card"><div class="panel-head"><div><h3>Expense split</h3><p>By category, last 12 months</p></div><button class="btn small" onclick="toggleChartTable('chartExpenses')">Table</button></div><div class="chart-body" id="chartExpenses"></div></div></div>
+        <div class="grid dash-grid">
+          <div class="panel"><div class="panel-head"><div><h3>Recent invoices</h3><p>Your latest billing activity</p></div><button class="btn small" onclick="navigate('invoices')">View all →</button></div><div id="recentInvoices"></div></div>
+          <div class="grid" style="gap:16px"><div class="panel"><div class="panel-head"><div><h3>Quick actions</h3><p>Keep daily work moving</p></div></div><div class="panel-body"><div class="quick-grid">
+            <button class="quick" onclick="openInvoiceForm()"><span class="quick-ico">▤</span><span><b>Create invoice</b><small>Bill a customer</small></span></button>
+            <button class="quick" onclick="openCustomerForm()"><span class="quick-ico">♙</span><span><b>Add customer</b><small>Save their details</small></span></button>
+            <button class="quick" onclick="openProductForm()"><span class="quick-ico">◈</span><span><b>Add item</b><small>Product or service</small></span></button>
+            <button class="quick" onclick="navigate('payments')"><span class="quick-ico">₹</span><span><b>Track dues</b><small>See pending amounts</small></span></button><button class="quick" onclick="navigate('purchases')"><span class="quick-ico">⇩</span><span><b>Record purchase</b><small>Receive inventory</small></span></button><button class="quick" onclick="sendDailySummary()"><span class="quick-ico">↗</span><span><b>Daily summary</b><small>Share on WhatsApp</small></span></button>
+          </div></div></div>
+          <div class="panel"><div class="panel-head"><div><h3>Outstanding payments</h3><p>Customers who have a balance</p></div></div><div class="panel-body" id="topDues"></div></div></div>
+        </div>
+      </section>
+      <section class="view" id="view-invoices">
+        <div class="section-head"><div><h2>Invoices</h2><p>Create, view and print customer invoices.</p></div><div class="toolbar"><button class="btn" onclick="exportInvoicesCSV()">↓ Export CSV</button><button class="btn primary" onclick="openInvoiceForm()">＋ New invoice</button></div></div>
+        <div class="panel"><div class="panel-head"><div class="search"><input id="invoiceSearch" placeholder="Search invoice or customer…" oninput="renderInvoices()"></div><select id="invoiceStatus" class="btn" onchange="renderInvoices()"><option value="All">All statuses</option><option>Paid</option><option>Partial</option><option>Unpaid</option></select></div><div id="invoiceTable"></div></div>
+      </section>
+      <section class="view" id="view-customers">
+        <div class="section-head"><div><h2>Customers</h2><p>One place for customer details and balances.</p></div><button class="btn primary" onclick="openCustomerForm()">＋ Add customer</button></div>
+        <div class="panel"><div class="panel-head"><div class="search"><input id="customerSearch" placeholder="Search customers…" oninput="renderCustomers()"></div><span class="tiny" id="customerCount"></span></div><div id="customerTable"></div></div>
+      </section>
+      <section class="view" id="view-items">
+        <div class="section-head"><div><h2>Items & services</h2><p>Save frequently used products and service rates.</p></div><button class="btn primary" onclick="openProductForm()">＋ Add item</button></div>
+        <div class="panel"><div class="panel-head"><div class="search"><input id="productSearch" placeholder="Search items…" oninput="renderProducts()"></div><span class="tiny" id="productCount"></span></div><div id="productTable"></div></div>
+      </section>
+      <section class="view" id="view-payments">
+        <div class="section-head"><div><h2>Payments & dues</h2><p>Know what has been collected and what is still pending.</p></div></div>
+        <div class="grid stats" id="paymentStats"></div>
+        <div class="grid" style="grid-template-columns:minmax(0,1.15fr) minmax(270px,.85fr);align-items:start;gap:16px">
+          <div class="panel"><div class="panel-head"><div><h3>Outstanding invoices</h3><p>Record a payment against any open invoice.</p></div></div><div id="outstandingTable"></div></div>
+          <div class="panel"><div class="panel-head"><div><h3>Recent payments</h3><p>Latest money received</p></div></div><div id="paymentsTable"></div></div>
+        </div>
+      </section>
+      <section class="view" id="view-cashflow">
+        <div class="section-head"><div><h2>Cash flow</h2><p>Track money actually received and paid, including manual deposits and withdrawals.</p></div><div class="toolbar"><button class="btn" onclick="exportCashFlow()">↓ Export CSV</button><button class="btn primary" onclick="openCashEntryForm()">＋ Add cash entry</button></div></div>
+        <div class="toolbar" style="margin-bottom:14px"><div class="field"><label>From</label><input type="date" id="cashFrom" onchange="renderCashFlow()"></div><div class="field"><label>To</label><input type="date" id="cashTo" onchange="renderCashFlow()"></div><button class="btn" style="align-self:end" onclick="resetCashDates()">This month</button></div>
+        <div class="grid stats" id="cashStats"></div><div class="panel"><div class="panel-head"><div><h3>Cash movement ledger</h3><p>Payments, supplier payouts, expenses, payroll and manual entries.</p></div></div><div id="cashFlowTable"></div></div>
+      </section>
+      <section class="view" id="view-staff">
+        <div class="section-head"><div><h2>Staff & payroll</h2><p>Keep employee records, prepare monthly salary and track salary payments.</p></div><div class="toolbar"><button class="btn" onclick="openStaffForm()">＋ Add employee</button><button class="btn primary" onclick="openPayrollForm()">＋ Prepare payroll</button></div></div>
+        <div class="grid stats" id="staffStats"></div><div class="panel" style="margin-bottom:16px"><div class="panel-head"><div><h3>Employees</h3><p>Staff details and monthly salary settings.</p></div></div><div id="staffTable"></div></div>
+        <div class="panel"><div class="panel-head"><div><h3>Payroll register</h3><p>Monthly salary, deductions, payments and pending salary.</p></div></div><div id="payrollTable"></div></div>
+      </section>
+      <section class="view" id="view-assistant">
+        <div class="section-head"><div><h2>HisabFlow AI assistant</h2><p>Ask questions about your business in English or Hindi.</p></div><span class="local-pill">● Local insights</span></div>
+        <div class="grid" style="grid-template-columns:minmax(0,1.4fr) minmax(260px,.8fr);align-items:start;gap:16px">
+          <div class="panel"><div class="panel-head"><div><h3>Ask your business assistant</h3><p>Questions are answered from records stored on this computer.</p></div></div><div class="panel-body">
+            <div class="toolbar" style="margin-bottom:10px"><button class="btn small soft" onclick="askAssistant('What are today’s sales?')">Today’s sales</button><button class="btn small soft" onclick="askAssistant('Show outstanding customer dues')">Outstanding dues</button><button class="btn small soft" onclick="askAssistant('Which products are low stock?')">Low stock</button><button class="btn small soft" onclick="askAssistant('Show top products')">Top products</button><button class="btn small soft" onclick="askAssistant('Show cash flow')">Cash flow</button><button class="btn small soft" onclick="askAssistant('Show payroll status')">Payroll</button></div>
+            <div id="aiChat" class="ai-chat"><div class="ai-message bot">Hi! Ask me about sales, collections, customer dues, expenses, inventory or top-selling products.</div></div>
+            <form id="aiForm" class="ai-input-row"><input id="aiPrompt" placeholder="Ask: Who owes me more than ₹5,000?" autocomplete="off"><select id="aiVoiceLang" class="btn"><option value="en-IN">English</option><option value="hi-IN">हिन्दी</option></select><button type="button" class="btn" onclick="startVoiceQuestion()" title="Voice question">🎙</button><button class="btn primary" type="submit">Ask</button></form>
+            <p class="tiny" style="margin-top:10px">The current assistant uses local business rules and calculations; it is not a generative AI model. Your text questions and business records stay on this computer. Optional voice transcription is handled by your browser speech service, may need internet, and is not stored by HisabFlow.</p>
+          </div></div>
+          <div class="panel"><div class="panel-head"><div><h3>Smart business alerts</h3><p>Automatically calculated from your saved records.</p></div></div><div class="panel-body" id="aiInsights"></div></div>
+        </div>
+      </section>
+      <section class="view" id="view-reports">
+        <div class="section-head"><div><h2>Reports</h2><p>Review sales, collections and pending customer balances.</p></div><div class="toolbar"><div class="field"><label>From</label><input type="date" id="reportFrom" onchange="renderReports()"></div><div class="field"><label>To</label><input type="date" id="reportTo" onchange="renderReports()"></div><button class="btn" style="align-self:end" onclick="resetReportDates()">This month</button></div></div>
+        <div id="reportContent"></div>
+      </section>
+      <section class="view" id="view-inventory">
+        <div class="section-head"><div><h2>Inventory</h2><p>Stock on hand, low-stock alerts and stock adjustments.</p></div><button class="btn primary" onclick="openStockAdjustment()">＋ Adjust stock</button></div>
+        <div class="grid stats" id="inventoryStats"></div>
+        <div class="panel"><div class="panel-head"><div class="search"><input id="inventorySearch" placeholder="Search stock items…" oninput="renderInventory()"></div><span class="tiny" id="lowStockCount"></span></div><div id="inventoryTable"></div></div>
+      </section>
+      <section class="view" id="view-suppliers">
+        <div class="section-head"><div><h2>Suppliers</h2><p>Supplier contacts, purchase history and payable balances.</p></div><button class="btn primary" onclick="openSupplierForm()">＋ Add supplier</button></div>
+        <div class="panel"><div class="panel-head"><div class="search"><input id="supplierSearch" placeholder="Search suppliers…" oninput="renderSuppliers()"></div><span class="tiny" id="supplierCount"></span></div><div id="supplierTable"></div></div>
+      </section>
+      <section class="view" id="view-purchases">
+        <div class="section-head"><div><h2>Purchases</h2><p>Record supplier bills, stock receipts, payments and purchase returns.</p></div><div class="toolbar"><button class="btn primary" onclick="openPurchaseForm()">＋ Record purchase</button></div></div>
+        <div class="grid stats" id="purchaseStats"></div>
+        <div class="panel"><div id="purchaseTable"></div></div>
+      </section>
+      <section class="view" id="view-expenses">
+        <div class="section-head"><div><h2>Expenses</h2><p>Track operating costs for a clearer net-profit view.</p></div><button class="btn primary" onclick="openExpenseForm()">＋ Add expense</button></div>
+        <div class="grid stats" id="expenseStats"></div><div class="panel"><div id="expenseTable"></div></div>
+      </section>
+      <section class="view" id="view-quotations">
+        <div class="section-head"><div><h2>Quotations</h2><p>Create estimates, track decisions and convert accepted quotes into invoices.</p></div><button class="btn primary" onclick="openQuotationForm()">＋ New quotation</button></div>
+        <div class="panel"><div id="quotationTable"></div></div>
+      </section>
+      <section class="view" id="view-warranties">
+        <div class="section-head"><div><h2>Warranty register</h2><p>Register sold products, serial numbers and printable QR warranty cards.</p></div><button class="btn primary" onclick="openWarrantyForm()">＋ Register warranty</button></div>
+        <div class="panel"><div id="warrantyTable"></div></div>
+      </section>
+      <section class="view" id="view-recurring">
+        <div class="section-head"><div><h2>Recurring invoices</h2><p>Save repeat billing templates and generate due invoices in one click.</p></div><button class="btn primary" onclick="openRecurringForm()">＋ Create template</button></div>
+        <div class="notice" style="margin-bottom:14px">Recurring invoices are generated when you click Generate. HisabFlow does not run as a background scheduler while the app is closed.</div>
+        <div class="panel"><div id="recurringTable"></div></div>
+      </section>
+      <section class="view" id="view-creditnotes">
+        <div class="section-head"><div><h2>Credit notes</h2><p>Sales returns and price reductions against invoices. Reduces the customer balance and GST.</p></div><button class="btn primary" onclick="openCreditNoteForm()">＋ New credit note <kbd>Ctrl F8</kbd></button></div>
+        <div class="grid stats" id="creditStats"></div>
+        <div class="panel"><div class="panel-head"><div class="search"><input id="creditSearch" placeholder="Search credit notes…" oninput="renderCreditNotes()"></div></div><div id="creditTable"></div></div>
+      </section>
+      <section class="view" id="view-debitnotes">
+        <div class="section-head"><div><h2>Debit notes</h2><p>Goods returned to suppliers (purchase returns). Reduces the supplier balance, stock and input tax credit.</p></div><button class="btn primary" onclick="openDebitNoteForm()">＋ New debit note <kbd>Ctrl F9</kbd></button></div>
+        <div class="grid stats" id="debitStats"></div>
+        <div class="panel"><div id="debitTable"></div></div>
+      </section>
+      <section class="view" id="view-gst">
+        <div class="section-head"><div><h2>GST returns</h2><p>GSTR-1 and GSTR-3B summaries prepared from your invoices, credit notes, purchases and debit notes.</p></div>
+          <div class="toolbar"><div class="field"><label>Return period</label><input type="month" id="gstMonth" onchange="gstMonthChanged()"></div><div class="field"><label>From</label><input type="date" id="gstFrom" onchange="renderGST()"></div><div class="field"><label>To</label><input type="date" id="gstTo" onchange="renderGST()"></div></div></div>
+        <div class="tabs" role="tablist"><button class="tab active" data-gst="gstr1" onclick="setGstTab('gstr1')">GSTR-1 · Outward supplies</button><button class="tab" data-gst="gstr3b" onclick="setGstTab('gstr3b')">GSTR-3B · Summary &amp; tax</button><span style="flex:1"></span><button class="btn primary" onclick="exportGST('register')" title="GSTIN, Date, Customer Name, Invoice ID, Taxable Value, CGST, SGST, IGST, Total Invoice Value, HSN Code, Item Name">⬇ Excel – GST sales register</button><button class="btn" onclick="exportGST('xlsx')" title="Portal-style GSTR-1 / GSTR-3B workbook">⬇ Detailed return sheets</button><button class="btn" id="gstJsonBtn" onclick="exportGST('json')">⬇ JSON for GST offline tool</button></div>
+        <div id="gstContent"><div class="empty-inline">Loading…</div></div>
+      </section>
+      <section class="view" id="view-settings">
+        <div class="section-head"><div><h2>Business settings</h2><p>These details appear on your printed invoices.</p></div></div>
+        <div class="grid settings-grid">
+          <div class="panel settings-card"><h3>Business profile</h3><p class="hint">Enter your business details. You can change them later.</p><div class="notice info-note staff-only" style="margin-bottom:14px">Only the owner account can change business details. You can view them here.</div>
+            <form id="businessForm"><div class="form-grid">
+              <div class="field span2"><label>Business logo (PNG, JPG or WebP · max 650 KB)</label><input type="file" id="businessLogoFile" accept="image/png,image/jpeg,image/webp" onchange="previewBusinessLogo(this)"><div id="businessLogoPreview" class="logo-preview">No logo uploaded yet. Your business name will appear on bills.</div></div>
+              <div class="field span2"><label>Business name *</label><input name="name" required placeholder="e.g. Your Business Name"></div>
+              <div class="field"><label>GSTIN (optional)</label><input name="gstin" maxlength="15" placeholder="15-character GSTIN"></div>
+              <div class="field"><label>Business state *</label><select name="state" id="businessState" required></select></div>
+              <div class="field span2"><label>Business address</label><textarea name="address" placeholder="Shop / street / city / PIN code"></textarea></div>
+              <div class="field"><label>Phone</label><input name="phone" placeholder="Business contact number"></div>
+              <div class="field"><label>Email</label><input name="email" type="email" placeholder="name@example.com"></div>
+              <div class="field"><label>Invoice number prefix</label><input name="invoice_prefix" maxlength="12" placeholder="INV"></div>
+              <div class="field"><label>UPI ID (optional)</label><input name="upi_id" placeholder="business@upi"></div>
+              <div class="field span2"><label>Bank details (optional)</label><textarea name="bank_details" placeholder="Bank name · Account number · IFSC"></textarea></div>
+            </div><div class="divider"></div><button class="btn primary owner-only" type="submit">Save business details</button></form>
+          </div>
+          <div class="grid" style="gap:16px;align-content:start">
+            <div class="panel settings-card"><h3>Your account</h3><p class="hint">Signed in as <b id="settingsUser"></b></p><button class="btn" style="width:100%" onclick="openChangePassword()">🔑 Change password</button><div style="height:9px"></div><button class="btn danger" style="width:100%" onclick="logout()">⎋ Sign out</button></div>
+            <div class="panel settings-card owner-only" id="usersPanel"><div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px"><div><h3>Users & access</h3><p class="hint">Owners can do everything. Staff can bill and record transactions but cannot change business settings, users or backups.</p></div><button class="btn small primary" onclick="openUserForm()">＋ Add user</button></div><div id="usersList"><div class="empty-inline">Loading…</div></div></div>
+            <div class="panel settings-card owner-only"><h3>Data backup</h3><p class="hint">Your records are stored locally on this computer.</p><button class="btn primary" style="width:100%" onclick="downloadBackup()">↓ Download backup</button><div style="height:9px"></div><button class="btn" style="width:100%" onclick="document.getElementById('restoreFile').click()">↑ Restore from backup</button><input type="file" id="restoreFile" class="hide" accept="application/json,.json" onchange="restoreBackup(this)"><p class="tiny" style="margin:12px 0 0">Restoring replaces the current records. Download a fresh backup first.</p>
+            </div>
+            <div class="panel settings-card"><h3>About HisabFlow</h3><p class="hint">Local business suite · Version <span id="appVersion">3.1</span></p><div class="notice success-note">Offline-first. Your data stays in this app's local SQLite database. Sign-in accounts are stored only on this computer — no internet or cloud account is needed. A dated SQLite backup is also created locally when the app starts. Barcode/QR camera scanning needs a supported browser and camera permission; USB scanners can type into the scan field.</div><div class="divider"></div><div class="notice">This prototype does not file GST returns, generate e-way bills or register IRNs/e-invoices. WhatsApp actions open a pre-filled message for you to review and send manually. Check invoice requirements with your GST professional before business use.</div></div>
+          </div>
+        </div>
+        <div class="grid settings-grid" style="margin-top:16px">
+          <div class="panel settings-card owner-only" id="designPanel"><h3>Invoice design</h3><p class="hint">Choose how invoices, credit notes, quotations and bills look when printed or saved as PDF.</p>
+            <div class="tpl-grid" id="tplGrid"></div>
+            <div class="form-grid" style="margin-top:14px"><div class="field"><label>Accent colour</label><div class="swatches" id="tplColors"></div></div>
+              <div class="field"><label>Options</label><label class="check"><input type="checkbox" id="tplQr"> Show UPI payment QR (needs UPI ID)</label><label class="check"><input type="checkbox" id="tplHsn"> Show HSN-wise tax summary</label></div>
+              <div class="field span2"><label>Terms &amp; conditions (printed at the bottom)</label><textarea id="tplTerms" maxlength="1500" placeholder="1. Goods once sold will not be taken back.&#10;2. Interest @18% p.a. on overdue bills.&#10;3. Subject to local jurisdiction."></textarea></div></div>
+            <div class="divider"></div><div class="toolbar"><button class="btn primary" onclick="saveInvoiceDesign()">Save invoice design</button><button class="btn" onclick="previewInvoiceDesign(true)">Open full preview</button></div></div>
+          <div class="panel settings-card tpl-preview-card"><h3>Live preview</h3><p class="hint">Sample invoice with your business details.</p><div class="tpl-preview-wrap"><iframe id="tplPreview" class="tpl-preview" title="Invoice preview"></iframe></div></div>
+        </div>
+        <div class="panel settings-card owner-only" style="margin-top:16px" id="companiesPanel"><div style="display:flex;justify-content:space-between;gap:10px;align-items:flex-start"><div><h3>Companies</h3><p class="hint">Each company has its own customers, items, invoices, GST and backups. Users and passwords are shared.</p></div><button class="btn small primary" onclick="openCompanyForm()">＋ New company</button></div><div id="companiesList"></div></div>
+      </section>
+    </div>
+  </main>
+</div>
+<div class="auth-screen" id="authScreen" role="dialog" aria-modal="true" aria-labelledby="authTitle">
+  <div class="auth-wrap">
+    <div class="auth-hero">
+      <div class="brand"><div class="brand-mark">HF</div><div><div class="brand-name">HisabFlow</div><div class="brand-sub" style="color:#e2dcff">Business, made simple</div></div></div>
+      <h1>Your business books,<br>safe on this computer.</h1>
+      <p>Billing, stock, payments, staff and reports — all offline. Sign in to keep your records private.</p>
+      <ul class="auth-points"><li><span>🔒</span>Password-protected, stored locally</li><li><span>📴</span>Works fully without internet</li><li><span>👥</span>Separate owner and staff logins</li><li><span>💾</span>Automatic daily backups</li></ul>
+      <div class="foot">Your data never leaves this computer.</div>
+    </div>
+    <div class="auth-card">
+      <h2 id="authTitle">Sign in</h2><p class="sub" id="authSub">Welcome back! Enter your details to continue.</p>
+      <form id="authForm" autocomplete="on" novalidate>
+        <div class="auth-error" id="authError" role="alert"></div>
+        <div class="field setup-only"><label for="authDisplay">Your name</label><input id="authDisplay" name="display_name" autocomplete="name" placeholder="e.g. Ramesh Kumar" maxlength="60"></div>
+        <div class="field"><label for="authUser">Username</label><input id="authUser" name="username" autocomplete="username" placeholder="e.g. owner" required autocapitalize="off" spellcheck="false"></div>
+        <div class="field"><label for="authPass">Password</label><div class="pw-wrap"><input id="authPass" name="password" type="password" autocomplete="current-password" placeholder="Enter password" required><button type="button" class="pw-toggle" onclick="togglePw('authPass',this)">Show</button></div><div class="pw-meter setup-only"><i id="pwMeter"></i></div></div>
+        <div class="field setup-only"><label for="authPass2">Confirm password</label><input id="authPass2" name="password2" type="password" autocomplete="new-password" placeholder="Re-enter password"></div>
+        <label class="check"><input type="checkbox" id="authRemember" name="remember"> Keep me signed in for 30 days</label>
+        <button class="btn primary" type="submit" id="authSubmit">Sign in</button>
+      </form>
+      <div class="auth-help" id="authHelp"></div>
+    </div>
+  </div>
+</div>
+<div class="modal-backdrop" id="modalBackdrop" onclick="if(event.target===this)closeModal()"><div class="modal" id="modal"><div class="modal-head"><h3 id="modalTitle"></h3><button class="close-x" onclick="closeModal()">×</button></div><div class="modal-body" id="modalBody"></div><div class="modal-foot" id="modalFoot"></div></div></div>
+<div class="toast" id="toast"></div>
+<script src="/ui/app.js"></script>
+<script src="/ui/features.js"></script>
+</body></html>
